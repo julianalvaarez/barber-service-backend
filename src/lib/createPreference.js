@@ -17,12 +17,12 @@ export const createPreference = async (service, bookingId, barber_id) => {
                 }
             ],
             back_urls: {
-                success: `https://webhook.site/fa10d4db-1b65-4d84-a8ce-ca8cb0d9e340`,
-                failure: `${process.env.SERVER_URL}/api/payments/failure?bookingId=${bookingId}`,
-                pending: `${process.env.SERVER_URL}/api/payments/pending?bookingId=${bookingId}`
+                success: `https://maribarbershop.vercel.app/success`,
+                failure: `https://maribarbershop.vercel.app`,
+                pending: `https://maribarbershop.vercel.app`
             },
             external_reference: { bookingId, barber_id },
-            notification_url: `https://cf22cb96bef5.ngrok-free.app/webhook/mercadopago`,
+            notification_url: `https://barber-service-backend.onrender.com/webhook/mercadopago`,
             // auto_return: 'approved',
         }
     })
