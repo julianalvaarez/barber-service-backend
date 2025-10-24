@@ -10,6 +10,17 @@ router.get('/barbers', async (req, res) => {
     res.json(data);
 });
 
+router.post('/barbers', async (req, res) => {
+    try {
+        const newBarber = req.body;
+        const { data, error } = await supabase.from('barbers').insert([newBarber]).select().single();
+        if (error) throw error;
+        res.json(data);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
 router.put('/barbers/:id', async (req, res) => {
     try {
         const { id } = req.params;
