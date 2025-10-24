@@ -10,6 +10,28 @@ router.get('/barbers', async (req, res) => {
     res.json(data);
 });
 
+router.put('/barbers/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const updates = req.body;
+        const { data, error } = await supabase.from('barbers').update(updates).eq('id', id).select().single();
+        if (error) throw error;
+        res.json(data);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
+router.delete('/barbers/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        await supabase.from('barbers').delete().eq('id', id)
+        res.status(200).json({ message: 'Service deleted' });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
 // Obtener todos los servicios
 router.get('/', async (req, res) => {
     const { data, error } = await supabase.from('services').select('*').order('name');
